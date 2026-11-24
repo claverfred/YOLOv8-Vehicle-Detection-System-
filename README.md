@@ -26,7 +26,6 @@ Fine-tuned **YOLOv8n** detector for **cars and motorbikes** in road and CCTV ima
 8. [Getting started](#8-getting-started)
 9. [Repository layout](#9-repository-layout)
 10. [Technologies](#10-technologies)
-11. [Team & contribution](#11-team--contribution)
 
 ---
 
@@ -294,17 +293,6 @@ Then, in the sidebar, either keep the default path `best.pt` or choose **Upload 
 | Experimentation | Jupyter Notebook, Matplotlib, PyYAML |
 | Application | **Streamlit**, OpenCV, Pillow, NumPy, pandas |
 | Deployment format | PyTorch `.pt`, **ONNX** (opset 20) |
-
-## 11. Team & contribution
-
-**Group 01:** Allen Lyimo (M026/T25) · Cleverfred Mhidze (M069/T25) · Frank Mtibili (M047/T25)
-
-What this project adds on top of the off-the-shelf YOLOv8 tooling:
-
-- **A task-specific dataset:** 1,023 images annotated for a car vs motorbike split that matters in East African traffic, mixing close-up and dense CCTV scenes.
-- **A fine-tuned, CPU-deployable detector:** 0.854 mAP@50 at 3 M parameters and about 89 ms per image on a laptop CPU, trained without a GPU.
-- **A planning-oriented application layer:** a custom centroid tracker and directional line-crossing counter, plus mode-share and count summaries. These turn raw boxes into numbers a traffic planner can use.
-- **An honest evaluation:** per-class analysis, training-dynamics analysis, and the open issues listed in [section 7](#7-project-status-completed-vs-ongoing).
 
 ---
 
