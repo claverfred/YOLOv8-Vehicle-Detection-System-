@@ -1,0 +1,16 @@
+# Python 3.10+
+# Model training, inference and ONNX export (project trained with ultralytics 8.4.37, torch 2.11)
+ultralytics>=8.4
+onnx>=1.15
+
+# Streamlit dashboard (dashboard.py)
+streamlit>=1.32
+opencv-python>=4.8
+numpy>=1.24
+pandas>=2.0
+pillow>=10.0
+
+# Notebook (Group_01_Assigment.ipynb)
+pyyaml>=6.0
+matplotlib>=3.7
+jupyter

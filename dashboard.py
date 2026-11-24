@@ -186,8 +186,8 @@ if mode == "Image (snapshot)":
         col1.image(image, caption="Original", use_container_width=True)
 
         results = model(image, conf=confidence)
-        annotated = results[0].plot()
-        col2.image(annotated, caption="Detections", use_container_width=True)
+        annotated = results[0].plot()  # BGR numpy array (OpenCV order)
+        col2.image(annotated, caption="Detections", channels="BGR", use_container_width=True)
 
         class_names = model.names if hasattr(model, "names") else {}
         counts = _counts_from_results(results, class_names)
@@ -338,10 +338,10 @@ if mode == "Video (traffic flow)":
             h, w = frame.shape[:2]
             line_y = int(h * (count_line_y_pct / 100.0))
 
-            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            results = model(frame_rgb, conf=confidence)
+            # Ultralytics expects numpy frames in BGR order, which is what OpenCV reads.
+            results = model(frame, conf=confidence)
 
-            annotated_frame = results[0].plot()
+            annotated_frame = results[0].plot()  # BGR
 
             # Count crossings using centroid tracking (all detected objects, demo-level)
             centroids = _centroids_from_results(results)
@@ -372,7 +372,7 @@ if mode == "Video (traffic flow)":
                     tracks[tid].counted_up = True
 
             # Draw counting line
-            cv2.line(annotated_frame, (0, line_y), (w, line_y), (0, 255, 170), 2)
+            cv2.line(annotated_frame, (0, line_y), (w, line_y), (170, 255, 0), 2)  # #00FFAA in BGR
             cv2.putText(
                 annotated_frame,
                 f"Up: {up_count}  Down: {down_count}",
@@ -384,7 +384,7 @@ if mode == "Video (traffic flow)":
                 cv2.LINE_AA,
             )
 
-            stframe.image(annotated_frame, channels="RGB", use_container_width=True)
+            stframe.image(annotated_frame, channels="BGR", use_container_width=True)
 
             # Build a simple per-10s flow series
             elapsed = time.time() - start_t
